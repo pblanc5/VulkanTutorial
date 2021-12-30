@@ -1,8 +1,8 @@
 CFLAGS = -std=c++17 -O2
 LDFLAGS = -lglfw -lvulkan -ldl -lpthread -lX11 -lXxf86vm -lXrandr -lXi
 
-a.out: *.cpp *.hpp
-	g++ $(CFLAGS) -o a.out *.cpp $(LDFLAGS)
+a.out: src/*.cpp src/*.hpp
+	g++ $(CFLAGS) -o a.out src/*.cpp $(LDFLAGS)
 
 .PHONY: test clean
 
