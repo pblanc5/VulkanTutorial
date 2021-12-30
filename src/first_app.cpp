@@ -32,27 +32,13 @@ namespace lve {
     void FirstApp::loadModels() {
         
         std::vector<LveModel::Vertex> vertices = {
-            //{{0.0f, -0.5f}},
-            //{{0.5f, 0.5f}},
-            //{{-0.5f, 0.5f}},
-
-            // First
-            //{{0.0, -0.5}},
-            //{{0.25, 0.0}},
-            //{{-0.25, 0.0}},
-
-            // Second
-            //{{-0.25, 0.0}},
-            //{{0.0, 0.5}},
-            //{{-0.5, 0.5}},
-
-            // Third
-            //{{0.25, 0.0}},
-            //{{0.5, 0.5}},
-            //{{0.0, 0.5}},
+            {{0.0f, -0.5f}, {1.0f, 0.0f, 0.0f}},
+            {{0.5f, 0.5f}, {0.0f, 1.0f, 0.0f}},
+            {{-0.5f, 0.5f}, {0.0f, 0.0f, 1.0f}},
         };
 
-        seirpinskiSieve(-1.0, 1, 2.0f, 1, vertices);
+        // Optional Challenge
+        //seirpinskiSieve(-1.0, 1, 2.0f, 1, vertices);
         lveModel = std::make_unique<LveModel>(lveDevice, vertices);
     }
 
@@ -149,10 +135,10 @@ namespace lve {
 
     void FirstApp::seirpinskiSieve(float x, float y, float length, uint32_t iter, std::vector<LveModel::Vertex> &vertices) {
         // Write triangle vertices when max level of recurision is reached;
-        if (iter == 8) {
-            vertices.push_back({{x, y}});
-            vertices.push_back({{x + length/2, y - glm::sin(M_PI/3) * length}});
-            vertices.push_back({{x + length, y}});
+        if (iter == 5) {
+            vertices.push_back({{x, y}, {1.0f, 0.0f, 0.0f}});
+            vertices.push_back({{x + length/2, y - glm::sin(M_PI/3) * length}, {0.0f, 1.0f, 0.0f}});
+            vertices.push_back({{x + length, y}, {0.0f, 0.0f, 1.0f}});
         } else {
             iter = iter + 1;
             seirpinskiSieve(x, y, length/2, iter, vertices);
