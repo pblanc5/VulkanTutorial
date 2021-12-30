@@ -28,14 +28,17 @@ namespace lve {
             void createPipelineLayout();
             void createPipeline();
             void createCommandBuffers();
+            void freeCommandBuffers();
             void drawFrame();
+            void recreateSwapChain();
+            void recordCommandBuffer(int imageIndex);
 
             // optional fun
             void seirpinskiSieve(float x, float y, float length, uint32_t iter, std::vector<LveModel::Vertex> &vertices);
 
             LveWindow lveWindow{WIDTH, HEIGHT, "Hello, Vulkan!"};
             LveDevice lveDevice{lveWindow};
-            LveSwapChain lveSwapChain {lveDevice, lveWindow.getExtent()};
+            std::unique_ptr<LveSwapChain> lveSwapChain;
             std::unique_ptr<LvePipeline> lvePipeline;
             VkPipelineLayout pipelineLayout;
             std::vector<VkCommandBuffer> commandBuffers;
