@@ -15,8 +15,7 @@
 namespace lve {
 
     struct SimplePushConstantData {
-        glm::mat2 transform{1.0f};
-        glm::vec2 offset;
+        glm::mat4 transform{1.0f};
         alignas(16) glm::vec3 color;
     };
 
@@ -73,12 +72,12 @@ namespace lve {
 
         for (auto& object: gameObjects) {
 
-            object.transform2d.rotation = glm::mod(object.transform2d.rotation + 0.001f, glm::two_pi<float>());
+            object.transform.rotation.y = glm::mod(object.transform.rotation.y + 0.0001f, glm::two_pi<float>());
+            object.transform.rotation.x = glm::mod(object.transform.rotation.y + 0.00005f, glm::two_pi<float>());
 
             SimplePushConstantData push{};
-            push.offset = object.transform2d.translation;
             push.color = object.color;
-            push.transform = object.transform2d.mat2();
+            push.transform = object.transform.mat4();
 
             vkCmdPushConstants(
                 commandBuffer,

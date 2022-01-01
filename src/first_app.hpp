@@ -24,7 +24,7 @@ namespace lve {
             void run();
         private:
             void loadGameObjects();
-
+            std::unique_ptr<LveModel> createCubeModel(LveDevice& device, glm::vec3 offset); 
             // optional fun
             void seirpinskiSieve(float x, float y, float length, uint32_t iter, std::vector<LveModel::Vertex> &vertices);
 
