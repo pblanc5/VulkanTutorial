@@ -67,7 +67,10 @@ namespace lve {
         std::cout << "End Create Pipeline...\n";
     }
 
-    void SimpleRenderSystem::renderGameObjects(VkCommandBuffer commandBuffer, std::vector<LveGameObject> &gameObjects) {
+    void SimpleRenderSystem::renderGameObjects(
+        VkCommandBuffer commandBuffer,
+        std::vector<LveGameObject> &gameObjects,
+        const LveCamera &camera) {
         lvePipeline->bind(commandBuffer);
 
         for (auto& object: gameObjects) {
@@ -77,7 +80,7 @@ namespace lve {
 
             SimplePushConstantData push{};
             push.color = object.color;
-            push.transform = object.transform.mat4();
+            push.transform = camera.getProjection() * object.transform.mat4();
 
             vkCmdPushConstants(
                 commandBuffer,
