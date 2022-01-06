@@ -5,7 +5,7 @@
 #include <limits>
 
 namespace lve {
-    void LveCamera::setOrthographicProection(float left, float right, float bottom, float top, float near, float far) {
+    void LveCamera::setOrthographicProection(float left, float right, float top, float bottom, float near, float far) {
         projectionMatrix = glm::mat4{1.0f};
         projectionMatrix[0][0] = 2.f / (right - left);
         projectionMatrix[1][1] = 2.f / (bottom - top);
@@ -16,7 +16,7 @@ namespace lve {
     }
 
     void LveCamera::setPerspectiveProjection(float fovy, float aspect, float near, float far) {
-        assert(glm::abs(aspect = std::numeric_limits<float>::epsilon()) > 0.0f);
+        assert(glm::abs(aspect - std::numeric_limits<float>::epsilon()) > 0.0f);
         const float tanHalfFovy = tan(fovy / 2.f);
         projectionMatrix = glm::mat4{0.0f};
         projectionMatrix[0][0] = 1.f / (aspect * tanHalfFovy);

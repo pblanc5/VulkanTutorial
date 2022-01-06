@@ -30,7 +30,8 @@ namespace lve {
         while (!lveWindow.shouldClose()) {
             glfwPollEvents();
             float aspect = lveRenderer.getAspectRatio();
-            camera.setOrthographicProection(-aspect, aspect, -1, 1, -1, 1);
+            // camera.setOrthographicProection(-aspect, aspect, -1, 1, -1, 1);
+            camera.setPerspectiveProjection(glm::radians(50.f), aspect, 0.1f, 10.f);
 
             if (auto commandBuffer = lveRenderer.beginFrame()) {
                 lveRenderer.beginSwapChainRenderPass(commandBuffer);
@@ -47,7 +48,7 @@ namespace lve {
        std::shared_ptr<LveModel> lveModel = createCubeModel(lveDevice, {0.f, 0.f, 0.f});
        auto cube = LveGameObject::createGameObject();
        cube.model = lveModel;
-       cube.transform.translation = {0.f, 0.f, .5f};
+       cube.transform.translation = {0.f, 0.f, 2.5f};
        cube.transform.scale = {.5f, .5f, .5f};
        gameObjects.push_back(std::move(cube)); 
     }
