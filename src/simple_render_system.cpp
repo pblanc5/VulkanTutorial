@@ -73,6 +73,8 @@ namespace lve {
         const LveCamera &camera) {
         lvePipeline->bind(commandBuffer);
 
+        auto projectionView = camera.getProjection() * camera.getView();
+
         for (auto& object: gameObjects) {
 
             object.transform.rotation.y = glm::mod(object.transform.rotation.y + 0.0001f, glm::two_pi<float>());
@@ -80,7 +82,7 @@ namespace lve {
 
             SimplePushConstantData push{};
             push.color = object.color;
-            push.transform = camera.getProjection() * object.transform.mat4();
+            push.transform = projectionView * object.transform.mat4();
 
             vkCmdPushConstants(
                 commandBuffer,
